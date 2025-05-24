@@ -1,0 +1,13 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /notification-service
+
+spring:
+  application:
+    name: notification-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin123
