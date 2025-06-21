@@ -4,15 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@RedisHash("notification_tb")
 public class Notification {
-    private UUID id;
-    private UUID user_id;
+
+    @Id
+    private String id;
+
+    @Indexed
+    private String userId;
+
     private Integer tipo;
 }

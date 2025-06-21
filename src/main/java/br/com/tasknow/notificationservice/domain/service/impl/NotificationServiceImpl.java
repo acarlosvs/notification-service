@@ -17,15 +17,15 @@ public class NotificationServiceImpl implements NotificationService {
 
     private final NotificacaoRepository notificacaoRepository;
 
-    @Override
-    public Notification send(Notification notification) {
-        notification.setId(UUID.randomUUID());
-        return notificacaoRepository.save(notification);
-    }
-
     @Async
     @Override
     public void sendAsync(Notification notification) {
         send(notification);
+    }
+
+    @Override
+    public Notification send(Notification notification) {
+        notification.setId(UUID.randomUUID().toString());
+        return notificacaoRepository.save(notification);
     }
 }

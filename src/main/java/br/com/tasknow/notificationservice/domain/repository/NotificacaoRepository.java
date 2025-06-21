@@ -1,7 +1,10 @@
 package br.com.tasknow.notificationservice.domain.repository;
 
 import br.com.tasknow.notificationservice.domain.model.Notification;
+import org.springframework.data.repository.CrudRepository;
 
-public interface NotificacaoRepository {
-    Notification save(Notification notification);
+import java.util.UUID;
+
+public interface NotificacaoRepository extends CrudRepository<Notification, UUID> {
+
 }

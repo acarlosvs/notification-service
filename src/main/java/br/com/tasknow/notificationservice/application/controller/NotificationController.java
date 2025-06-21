@@ -4,28 +4,27 @@ import br.com.tasknow.notificationservice.domain.model.Notification;
 import br.com.tasknow.notificationservice.domain.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Timer;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/notification/send")
+@RequestMapping("/v1/notification/send")
 public class NotificationController {
 
     private final NotificationService notificationService;
 
-    @PostMapping
-    public ResponseEntity<Notification> send(Notification notification) {
-        return ResponseEntity.ok(notificationService.send(notification));
-    }
-
     @PostMapping("/async")
-    public ResponseEntity<Void> sendAsync(Notification notification) throws InterruptedException {
+    public ResponseEntity<Void> sendAsync(@RequestBody Notification notification) {
         notificationService.sendAsync(notification);
         return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Notification> send(@RequestBody Notification notification) {
+        return ResponseEntity.ok(notificationService.send(notification));
     }
 }
